@@ -1,0 +1,48 @@
+<div class="container my-5">
+  @if (isLoading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+  
+  @if (errorMessage) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+  
+  @if (!product && !isLoading) {
+    <div class="alert alert-warning" role="alert">
+      Product not found.
+    </div>
+  }
+  
+  @if (product) {
+    <div class="row">
+      <div class="col-md-6">
+        <img [src]="product.image" class="img-fluid rounded" [alt]="product.title">
+      </div>
+      <div class="col-md-6">
+        <h1>{{ product.title }}</h1>
+        <div class="d-flex align-items-center mb-3">
+          <span class="badge bg-secondary me-2">{{ product.category }}</span>
+          <div class="rating">
+            <i class="bi bi-star-fill text-warning"></i>
+            {{ product.rating.rate }} ({{ product.rating.count }} reviews)
+          </div>
+        </div>
+        
+        <h3 class="text-primary mb-3">{{ product.price | currency }}</h3>
+        
+        <p class="lead">{{ product.description }}</p>
+        
+        <div class="d-grid gap-2 d-md-block mt-4">
+          <button class="btn btn-primary me-2">Add to Cart</button>
+          <a routerLink="/" class="btn btn-outline-secondary">Back to Products</a>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="text-center">Our Products</h1>
+      
+      @if (isLoading) {
+        <div class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      }
+      
+      @if (errorMessage) {
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
+    </div>
+  </div>
+  
+  <div class="row g-4">
+    @for (product of products; track product.id) {
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 product-card" [routerLink]="['/products', product.id]">
+          <img [src]="product.image" class="card-img-top p-3" [alt]="product.title" style="height: 200px; object-fit: contain;">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text text-muted">{{ product.price | currency }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-secondary">{{ product.category }}</span>
+              <small class="text-muted">
+                <i class="bi bi-star-fill text-warning"></i> {{ product.rating.rate }} ({{ product.rating.count }})
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
